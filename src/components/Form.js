@@ -7,42 +7,10 @@ function Form({ setListings, listings }) {
     location: "",
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
 
-    const formData = {
-      description: e.target.description.value,
-      image: e.target.image.value,
-      location: e.target.location.value,
-    };
-
-    // Update the state with the new form data
-    setNewListing(formData);
-
-    // Send the form data to the backend
-    fetch("http://localhost:6001/listings", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((r) => r.json())
-      .then((newItem) => console.log(newItem));
-
-    // Update the state with the new listings data
-    setListings([...listings, formData]);
-
-    // Clear the form fields after submission
-    setNewListing({
-      description: "",
-      image: "",
-      location: "",
-    });
-  };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form >
       <label htmlFor="description">Product Description</label>
       <input
         type="text"

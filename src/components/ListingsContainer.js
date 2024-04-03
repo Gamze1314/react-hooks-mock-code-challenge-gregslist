@@ -1,32 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ListingCard from "./ListingCard";
 
 function ListingsContainer({ setListings, listings }) {
   const [isSorted, setIsSorted] = useState(false);
   
-  // get listings data
-  useEffect(() => {
-    fetch("http://localhost:6001/listings")
-      .then((r) => r.json())
-      .then((data) => setListings(data));
-  }, []);
 
-  function handleDelete(id) {
+  function handleDelete(id) { 
+    // console.log(id)
     fetch(`http://localhost:6001/listings/${id}`, {
       method: "DELETE",
     })
-      .then((r) => r.json())
-      .then((deletedListing) => {
-        console.log(deletedListing);
-
-        // Update state after successful deletion
+     .then((res) => res.json())
+     .then((data) => {
+        console.log(data);
+      // Update state after successful deletion
         const updatedLis = listings.filter((li) => li.id !== id);
         setListings(updatedLis);
-      })
-      .catch((error) => {
-        console.error("Error deleting listing:", error);
-      });
-  }
+     });
+    };
+  
+
   // return ListingCards for each listing and store it in a variable
   const lis = listings.map((li) => {
     return (
@@ -42,7 +35,6 @@ function ListingsContainer({ setListings, listings }) {
   });
 
   // sort the listing alphabetically by location
-
   function sortByLocation() {
     const sortedListings = [...listings].sort((a, b) => {
       const locationA = a.location.toUpperCase();
