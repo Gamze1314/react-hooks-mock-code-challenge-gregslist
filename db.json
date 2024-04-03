@@ -11,6 +11,18 @@
       "description": "wood",
       "image": "./images/wood.jpg",
       "location": "Greenpoint"
+    },
+    {
+      "description": "hELLO",
+      "image": "",
+      "location": "",
+      "id": 6
+    },
+    {
+      "description": "",
+      "image": "",
+      "location": "",
+      "id": 7
     }
   ]
 }

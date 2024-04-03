@@ -1,23 +1,47 @@
 import React, { useState } from "react";
 
-function Form({ setListings, listings }) {
-  const [newListing, setNewListing] = useState({
+function Form({ setListings }) {
+  const [formData , setFormData] = useState({
     description: "",
     image: "",
     location: "",
   });
 
+console.log(formData);
 
+function handleSubmit(e) {
+  e.preventDefault();
+
+  const newListing = {
+    description: formData.description,
+    image: formData.image,
+    location: formData.location,
+  };
+
+  //send POST request to the server, and update the state
+  fetch("http://localhost:6001/listings", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newListing),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      setListings((prevListings) => [...prevListings, data]);
+    })
+
+}
 
   return (
-    <form >
+    <form onSubmit={handleSubmit}>
       <label htmlFor="description">Product Description</label>
       <input
         type="text"
         id="description"
-        value={newListing.description}
+        value={formData.description}
         onChange={(e) =>
-          setNewListing({ ...newListing, description: e.target.value })
+          setFormData({ ...formData, description: e.target.value })
         }
       />
 
@@ -25,9 +49,9 @@ function Form({ setListings, listings }) {
       <input
         type="text"
         id="image"
-        value={newListing.image}
+        value={formData.image}
         onChange={(e) =>
-          setNewListing({ ...newListing, image: e.target.value })
+          setFormData({ ...formData, image: e.target.value })
         }
       />
 
@@ -35,9 +59,9 @@ function Form({ setListings, listings }) {
       <input
         type="text"
         id="location"
-        value={newListing.location}
+        value={formData.location}
         onChange={(e) =>
-          setNewListing({ ...newListing, location: e.target.value })
+          setFormData({ ...formData, location: e.target.value })
         }
       />
 
