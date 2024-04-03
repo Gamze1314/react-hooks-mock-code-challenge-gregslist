@@ -3,22 +3,20 @@ import ListingCard from "./ListingCard";
 
 function ListingsContainer({ setListings, listings }) {
   const [isSorted, setIsSorted] = useState(false);
-  
 
-  function handleDelete(id) { 
+  function handleDelete(id) {
     // console.log(id)
     fetch(`http://localhost:6001/listings/${id}`, {
       method: "DELETE",
     })
-     .then((res) => res.json())
-     .then((data) => {
+      .then((res) => res.json())
+      .then((data) => {
         console.log(data);
-      // Update state after successful deletion
+        // Update state after successful deletion
         const updatedLis = listings.filter((li) => li.id !== id);
         setListings(updatedLis);
-     });
-    };
-  
+      });
+  }
 
   // return ListingCards for each listing and store it in a variable
   const lis = listings.map((li) => {

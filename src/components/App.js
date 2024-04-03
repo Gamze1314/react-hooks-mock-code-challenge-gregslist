@@ -19,7 +19,7 @@ console.log(listings)
   return (
     <div className="app">
       <Header setListings={setListings} listings={listings} />
-      <Form setListings={setListings} listings={listings} />
+      <Form setListings={setListings} />
       <ListingsContainer setListings={setListings} listings={listings} />
     </div>
   );
